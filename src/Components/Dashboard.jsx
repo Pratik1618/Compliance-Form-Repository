@@ -8,6 +8,19 @@ const stampOptions = [
   { value: "branch", label: "Branch" },
 ];
 
+// AI search intelligence mapping
+const AI_KEYWORDS = {
+  muster: ["muster", "attendance", "roll"],
+  wages: ["wage", "salary", "payment"],
+  contractor: ["clra", "contractor"],
+  gratuity: ["gratuity"],
+  bonus: ["bonus"],
+  maternity: ["maternity"],
+  shop: ["shop", "establishment"],
+  factory: ["factory"],
+  register: ["register", "form"],
+};
+
 function Dashboard() {
   const [states, setStates] = useState([]);
   const [selectedState, setSelectedState] = useState("");
@@ -86,13 +99,33 @@ function Dashboard() {
     const selectedCategory = selectedExcel ? getCategory(selectedExcel) : "";
 
 
-  const filteredFiles = useMemo(
-    () =>
-      excelFiles.filter((file) =>
-        file.toLowerCase().includes(searchTerm.toLowerCase())
-      ),
-    [excelFiles, searchTerm]
+const filteredFiles = useMemo(() => {
+  if (!searchTerm) return excelFiles;
+
+  const term = searchTerm.toLowerCase();
+
+  // direct filename match
+  const directMatches = excelFiles.filter((file) =>
+    file.toLowerCase().includes(term)
   );
+
+  // AI intent match
+  const aiMatches = excelFiles.filter((file) => {
+    const lowerFile = file.toLowerCase();
+
+    return Object.keys(AI_KEYWORDS).some((intent) => {
+      if (term.includes(intent)) {
+        return AI_KEYWORDS[intent].some((keyword) =>
+          lowerFile.includes(keyword)
+        );
+      }
+      return false;
+    });
+  });
+
+  // merge & remove duplicates
+  return [...new Set([...directMatches, ...aiMatches])];
+}, [excelFiles, searchTerm]);
 
   const groupedFiles = useMemo(
     () =>
@@ -169,9 +202,7 @@ function Dashboard() {
                   </option>
                 ))}
               </select>
-              <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400">
-                v
-              </span>
+        
             </div>
           </div>
 
@@ -187,7 +218,7 @@ function Dashboard() {
               <span className="truncate">
                 {selectedFileName || "Select form by category or search"}
               </span>
-              <span className="ml-3 text-slate-400">{showDropdown ? "^" : "v"}</span>
+              {/* <span className="ml-3 text-slate-400">{showDropdown ? "^" : "v"}</span> */}
             </button>
 
             <div
@@ -267,16 +298,16 @@ function Dashboard() {
                   </option>
                 ))}
               </select>
-              <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400">
+              {/* <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400">
                 v
-              </span>
+              </span> */}
             </div>
           </div>
 
-          <div className="lg:col-span-1">
+          <div >
             <button
               onClick={handleExcelDownload}
-              className="h-11 w-full rounded-xl bg-emerald-600 px-4 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-200"
+              className="h-11  rounded-xl bg-emerald-600 px-4 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-200"
             >
               Download
             </button>
