@@ -1219,6 +1219,13 @@ export const stateExcelMapping = {
     "/Odisha/S&E/FORM 12 Overtime.docx",
     "/Odisha/S&E/FORM 8.docx",
   ],
+  "Pan India": [
+    "/Pan India/Bonus -Form D - Format.docx",
+    "/Pan India/Half_Yearly_Return_FORM_XXIV_.xls",
+    "/Pan India/Maternity Benefit_Return_2025.doc",
+    "/Pan India/National & Fastival Holidays 2026.docx",
+    "/Pan India/PAYMENT OF WAGES_FORM IV_2025.docx",
+  ],
   "Panjab": [
     "/Panjab/BOCW/FORM I.xlsx",
     "/Panjab/BOCW/FORM VI.xlsx",

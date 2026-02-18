@@ -59,6 +59,7 @@ function outputJS(mapping) {
 
   output += "};";
 
+  
   return output;
 }
 
