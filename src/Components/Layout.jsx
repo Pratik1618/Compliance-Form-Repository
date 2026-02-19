@@ -1,16 +1,8 @@
 import { useState } from "react";
 import Dashboard from "./Dashboard";
+import BranchMapping from "./BranchMapping";
 
-function BranchMapping() {
-  return (
-    <div className="p-6">
-      <h1 className="text-xl font-semibold">Branch Mapping</h1>
-      <p className="text-sm text-slate-500 mt-1">
-        Configure state → branch compliance mapping here.
-      </p>
-    </div>
-  );
-}
+
 
 export default function Layout() {
   const [activePage, setActivePage] = useState("dashboard");

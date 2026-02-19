@@ -1221,6 +1221,10 @@ export const stateExcelMapping = {
   ],
   "Pan India": [
     "/Pan India/Bonus -Form D - Format.docx",
+    "/Pan India/Bonus Register/Bonus form C 1.doc",
+    "/Pan India/Bonus Register/Bonus return form D.doc",
+    "/Pan India/Bonus Register/Form D.pdf",
+    "/Pan India/Bonus Register/Form-C (Bonus).xls",
     "/Pan India/Half_Yearly_Return_FORM_XXIV_.xls",
     "/Pan India/Maternity Benefit_Return_2025.doc",
     "/Pan India/National & Fastival Holidays 2026.docx",

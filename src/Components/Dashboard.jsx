@@ -8,6 +8,81 @@ const stampOptions = [
   { value: "branch", label: "Branch" },
 ];
 
+const complianceSummaryRows = [
+  {
+    srNo: 1,
+    act: "POSH Act, 2013",
+    formNo: "Letter & Reports",
+    mode: "Annually - Online / Offline",
+    dueDateState: "31st Jan, 2026",
+    consolidateOnline: "30th March, 2026",
+  },
+  {
+    srNo: 2,
+    act: "Minimum Wages Act, 1948",
+    formNo: "III",
+    mode: "Annually - Online / Offline",
+    dueDateState: "31st Jan, 2026",
+    consolidateOnline: "30th March, 2026",
+  },
+  {
+    srNo: 3,
+    act: "Payment of Wages Act, 1936",
+    formNo: "IV",
+    mode: "Annually - Online / Offline",
+    dueDateState: "31st Jan, 2026",
+    consolidateOnline: "30th March, 2026",
+  },
+  {
+    srNo: 4,
+    act: "Labour Welfare Fund Act, 1965",
+    formNo: "State wise",
+    mode: "Half yearly - Online / Offline",
+    dueDateState: "31st Jan, 2026",
+    consolidateOnline: "30th March, 2026",
+  },
+  {
+    srNo: 5,
+    act: "Shop & Establishment Act, 1948",
+    formNo: "State wise - R / U / T",
+    mode: "Annually - Online / Offline",
+    dueDateState: "31st Jan, 2026",
+    consolidateOnline: "30th March, 2026",
+  },
+  {
+    srNo: 6,
+    act: "National Festival Holiday Act",
+    formNo: "State wise",
+    mode: "Annually - Online / Offline",
+    dueDateState: "31st Dec, 2025",
+    consolidateOnline: "30th March, 2026",
+  },
+  {
+    srNo: 7,
+    act: "Contract Labour Act, 1970",
+    formNo: "XXIV",
+    mode: "Half Yearly & Yearly - Online / Offline",
+    dueDateState: "30th July, 2025 & 30th Jan, 2026",
+    consolidateOnline: "30th March, 2026",
+  },
+  {
+    srNo: 8,
+    act: "Maternity Benefits Act, 1961",
+    formNo: "11",
+    mode: "Annually - Online / Offline",
+    dueDateState: "21st Jan, 2026",
+    consolidateOnline: "30th March, 2026",
+  },
+  {
+    srNo: 9,
+    act: "Payment of Bonus Act, 1965",
+    formNo: "C & D",
+    mode: "Annually - Online / Offline",
+    dueDateState: "1st Feb, 2026",
+    consolidateOnline: "30th March, 2026",
+  },
+];
+
 // AI search intelligence mapping
 const AI_KEYWORDS = {
   muster: ["muster", "attendance", "roll"],
@@ -34,7 +109,13 @@ function Dashboard() {
   const formDropdownRef = useRef(null);
 
   useEffect(() => {
-    setStates(Object.keys(stateExcelMapping).sort());
+    const orderedStates = Object.keys(stateExcelMapping).sort((a, b) => {
+      if (a === "Pan India") return -1;
+      if (b === "Pan India") return 1;
+      return a.localeCompare(b);
+    });
+
+    setStates(orderedStates);
   }, []);
 
   useEffect(() => {
@@ -248,7 +329,7 @@ const filteredFiles = useMemo(() => {
                     .sort()
                     .map((category) => (
                       <div key={category} className="pb-1">
-                        <div className="px-3 py-2 text-[11px] font-semibold uppercase tracking-wide text-slate-500">
+                        <div className="px-3 py-2 text-center text-[11px] font-semibold uppercase tracking-wide text-slate-500">
                           {category}
                         </div>
                         {groupedFiles[category].map((file) => {
@@ -326,6 +407,41 @@ const filteredFiles = useMemo(() => {
                 <span className="font-semibold break-all">{selectedCategory}/ {selectedFileName}</span>
               </div>
             ) : null}
+      <div className="mt-4 rounded-xl border border-slate-200 bg-white shadow-sm">
+        <div className="border-b border-slate-200 px-4 py-3">
+          <h2 className="text-sm font-semibold text-slate-800">
+            Compliance Summary
+          </h2>
+        </div>
+        <div className="overflow-x-auto">
+          <table className="min-w-full text-left text-sm">
+            <thead className="bg-slate-50 text-xs uppercase tracking-wide text-slate-600">
+              <tr>
+                <th className="px-4 py-3">Sr.No</th>
+                <th className="px-4 py-3">Act&apos;s</th>
+                <th className="px-4 py-3">Form No</th>
+                <th className="px-4 py-3">Mode of submission</th>
+                <th className="px-4 py-3">Due date-State</th>
+                <th className="px-4 py-3">Consolidate Online</th>
+              </tr>
+            </thead>
+            <tbody>
+              {complianceSummaryRows.map((row) => (
+                <tr key={row.srNo} className="border-t border-slate-100">
+                  <td className="px-4 py-3 text-slate-700">{row.srNo}</td>
+                  <td className="px-4 py-3 text-slate-700">{row.act}</td>
+                  <td className="px-4 py-3 text-slate-700">{row.formNo}</td>
+                  <td className="px-4 py-3 text-slate-700">{row.mode}</td>
+                  <td className="px-4 py-3 text-slate-700">{row.dueDateState}</td>
+                  <td className="px-4 py-3 text-slate-700">
+                    {row.consolidateOnline}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 }
