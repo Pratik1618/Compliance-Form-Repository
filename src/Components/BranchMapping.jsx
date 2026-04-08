@@ -1,32 +1,38 @@
 import React, { useState } from "react";
+import {
+  branchMappings,
+  branchMappingBranches,
+  branchMappingStates,
+} from "../Constants/branchMappings";
 
 export default function BranchMapping() {
-  const branches = [
-    "Mumbai Branch",
-    "Pune Branch",
-    "Ahmedabad Branch",
-    "Bangalore Branch",
-    "Delhi Branch",
-  ];
-
-  const states = ["Maharashtra", "Gujarat", "Karnataka", "Delhi"];
+  const branches = branchMappingBranches;
+  const states = branchMappingStates;
 
   const [selectedBranch, setSelectedBranch] = useState("");
   const [selectedState, setSelectedState] = useState("");
-  const [mappings, setMappings] = useState([]);
+  const [selectedAddress, setSelectedAddress] = useState("");
+  const [mappings, setMappings] = useState(
+    branchMappings.map((item, index) => ({
+      id: index + 1,
+      ...item,
+    })),
+  );
 
   const handleAddMapping = () => {
-    if (!selectedBranch || !selectedState) return;
+    if (!selectedBranch || !selectedState || !selectedAddress) return;
 
     const newMapping = {
       id: Date.now(),
       branch: selectedBranch,
       state: selectedState,
+      address: selectedAddress,
     };
 
     setMappings((prev) => [...prev, newMapping]);
     setSelectedBranch("");
     setSelectedState("");
+    setSelectedAddress("");
   };
 
   const removeMapping = (id) => {
@@ -69,8 +75,8 @@ export default function BranchMapping() {
             </select>
           </div>
 
-          {/* State */}
-          <div className="lg:col-span-4">
+              {/* State */}
+          <div className="lg:col-span-3">
             <label className="mb-1 block text-xs font-medium text-slate-600">
               State
             </label>
@@ -86,6 +92,19 @@ export default function BranchMapping() {
                 </option>
               ))}
             </select>
+          </div>
+
+          {/* Address */}
+          <div className="lg:col-span-4">
+            <label className="mb-1 block text-xs font-medium text-slate-600">
+              Address
+            </label>
+            <input
+              value={selectedAddress}
+              onChange={(e) => setSelectedAddress(e.target.value)}
+              placeholder="Enter branch address"
+              className="h-11 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm text-slate-700 shadow-sm outline-none transition focus:border-slate-300 focus:ring-2 focus:ring-slate-100"
+            />
           </div>
 
           {/* Button */}
@@ -107,6 +126,7 @@ export default function BranchMapping() {
             <tr>
               <th className="text-left px-4 py-3 font-medium">Branch</th>
               <th className="text-left px-4 py-3 font-medium">State</th>
+              <th className="text-left px-4 py-3 font-medium">Address</th>
               <th className="text-left px-4 py-3 font-medium">Action</th>
             </tr>
           </thead>
@@ -114,7 +134,7 @@ export default function BranchMapping() {
           <tbody>
             {mappings.length === 0 ? (
               <tr>
-                <td colSpan="3" className="text-center px-4 py-6 text-slate-500">
+                <td colSpan="4" className="text-center px-4 py-6 text-slate-500">
                   No branch mappings created yet.
                 </td>
               </tr>
@@ -123,6 +143,7 @@ export default function BranchMapping() {
                 <tr key={map.id} className="border-t">
                   <td className="px-4 py-3">{map.branch}</td>
                   <td className="px-4 py-3">{map.state}</td>
+                  <td className="px-4 py-3">{map.address}</td>
                   <td className="px-4 py-3">
                     <button
                       onClick={() => removeMapping(map.id)}

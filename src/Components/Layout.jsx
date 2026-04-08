@@ -1,11 +1,15 @@
 import { useState } from "react";
 import Dashboard from "./Dashboard";
 import BranchMapping from "./BranchMapping";
-
-
+import Login from "./Login";
 
 export default function Layout() {
   const [activePage, setActivePage] = useState("dashboard");
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  if (!isAuthenticated) {
+    return <Login onSuccess={() => setIsAuthenticated(true)} />;
+  }
 
   return (
     <div className="flex min-h-screen bg-slate-100">
@@ -14,6 +18,12 @@ export default function Layout() {
       <aside className="w-64 bg-white border-r border-slate-200 shadow-sm">
         <div className="p-5 border-b border-slate-200">
           <h2 className="text-lg font-semibold">Compliance Panel</h2>
+          <button
+            onClick={() => setIsAuthenticated(false)}
+            className="mt-2 rounded-md bg-red-100 px-3 py-1 text-sm text-red-700 hover:bg-red-200"
+          >
+            Logout
+          </button>
         </div>
 
         <nav className="p-3 space-y-1">

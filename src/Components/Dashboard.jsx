@@ -1,5 +1,10 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { stateExcelMapping } from "../../stateExcelMapping.auto";
+import {
+  branchMappings,
+  getBranchesForState,
+  normalizeStateName,
+} from "../Constants/branchMappings";
 
 const stampOptions = [
   { value: "company", label: "Company" },
@@ -99,6 +104,7 @@ const AI_KEYWORDS = {
 function Dashboard() {
   const [states, setStates] = useState([]);
   const [selectedState, setSelectedState] = useState("");
+  const [selectedBranch, setSelectedBranch] = useState("");
   const [excelFiles, setExcelFiles] = useState([]);
   const [selectedExcel, setSelectedExcel] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
@@ -121,6 +127,7 @@ function Dashboard() {
   useEffect(() => {
     if (!selectedState) {
       setExcelFiles([]);
+      setSelectedBranch("");
       setSelectedExcel("");
       setSearchTerm("");
       return;
@@ -131,6 +138,20 @@ function Dashboard() {
     setSearchTerm("");
     setError("");
   }, [selectedState]);
+
+  const availableBranches = useMemo(
+    () => getBranchesForState(selectedState),
+    [selectedState],
+  );
+
+  useEffect(() => {
+    if (availableBranches.length === 1) {
+      setSelectedBranch(availableBranches[0].branch);
+      return;
+    }
+
+    setSelectedBranch("");
+  }, [availableBranches]);
 
   useEffect(() => {
     const handleOutsideClick = (event) => {
@@ -177,7 +198,12 @@ function Dashboard() {
   };
 
   const selectedFileName = selectedExcel ? selectedExcel.split("/").pop() : "";
-    const selectedCategory = selectedExcel ? getCategory(selectedExcel) : "";
+  const selectedCategory = selectedExcel ? getCategory(selectedExcel) : "";
+  const selectedMapping = branchMappings.find(
+    (item) =>
+      normalizeStateName(item.state) === normalizeStateName(selectedState) &&
+      item.branch === selectedBranch,
+  );
 
 
 const filteredFiles = useMemo(() => {
@@ -226,7 +252,7 @@ const filteredFiles = useMemo(() => {
     }
 
     setError("");
-    const filePath = encodeURI(`/Compliance${selectedExcel}`);
+    const filePath = encodeURI(`/Compliance-Form-Repository/Compliance${selectedExcel}`);
 
     try {
       const response = await fetch(filePath);
@@ -364,6 +390,33 @@ const filteredFiles = useMemo(() => {
 
           <div className="lg:col-span-2">
             <label className="mb-1 block text-xs font-medium text-slate-600">
+              Branch
+            </label>
+            <div className="relative">
+              <select
+                value={selectedBranch}
+                onChange={(e) => setSelectedBranch(e.target.value)}
+                disabled={!selectedState || availableBranches.length === 0}
+                className="h-11 w-full appearance-none rounded-xl border border-slate-200 bg-white px-3 pr-9 text-sm text-slate-700 shadow-sm outline-none transition disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400 focus:border-slate-300 focus:ring-2 focus:ring-slate-100"
+              >
+                <option value="">
+                  {!selectedState
+                    ? "Select state first"
+                    : availableBranches.length === 0
+                      ? "No branches mapped"
+                      : "Select branch"}
+                </option>
+                {availableBranches.map((item) => (
+                  <option key={`${item.state}-${item.branch}`} value={item.branch}>
+                    {item.branch}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <div className="lg:col-span-2">
+            <label className="mb-1 block text-xs font-medium text-slate-600">
               Stamp
             </label>
             <div className="relative">
@@ -385,7 +438,7 @@ const filteredFiles = useMemo(() => {
             </div>
           </div>
 
-          <div >
+          <div>
             <button
               onClick={handleExcelDownload}
               className="h-11  rounded-xl bg-emerald-600 px-4 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-200"
@@ -401,12 +454,26 @@ const filteredFiles = useMemo(() => {
           </div>
         ) : null}
       </div>
-         {selectedFileName ? (
-              <div className="mt-2 rounded-lg border border-slate-200 bg-slate-100 px-3 py-2 text-xs text-slate-700">
-                <span className="font-semibold  text-slate-600">Selected form:</span>{" "}
-                <span className="font-semibold break-all">{selectedCategory}/ {selectedFileName}</span>
-              </div>
-            ) : null}
+      {selectedFileName ? (
+        <div className="mt-2 rounded-lg border border-slate-200 bg-slate-100 px-3 py-2 text-xs text-slate-700">
+          <div>
+            <span className="font-semibold text-slate-600">Selected form:</span>{" "}
+            <span className="font-semibold break-all">
+              {selectedCategory}/ {selectedFileName}
+            </span>
+          </div>
+          {selectedMapping?.address ? (
+            <div className="mt-1">
+              <span className="font-semibold text-slate-600">Address:</span>{" "}
+              <span className="break-all">{selectedMapping.address}</span>
+            </div>
+          ) : (
+            <div className="mt-1 text-slate-500">
+              Select a mapped branch to view the address for this form.
+            </div>
+          )}
+        </div>
+      ) : null}
       <div className="mt-4 rounded-xl border border-slate-200 bg-white shadow-sm">
         <div className="border-b border-slate-200 px-4 py-3">
           <h2 className="text-sm font-semibold text-slate-800">
