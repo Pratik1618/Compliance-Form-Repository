@@ -5,12 +5,14 @@ import {
   getBranchesForState,
 } from "../Constants/branchMappings";
 
-export default function BranchMapping() {
+export default function BranchMapping({ signatories = [] }) {
   const states = branchMappingStates;
 
   const [selectedBranch, setSelectedBranch] = useState("");
   const [selectedState, setSelectedState] = useState("");
   const [selectedAddress, setSelectedAddress] = useState("");
+  const [selectedSignatoryId, setSelectedSignatoryId] = useState("");
+  const [editingMappingId, setEditingMappingId] = useState(null);
   const [mappings, setMappings] = useState(
     branchMappings.map((item, index) => ({
       id: index + 1,
@@ -32,24 +34,129 @@ export default function BranchMapping() {
     setSelectedBranch("");
   }, [availableBranches]);
 
-  const handleAddMapping = () => {
-    if (!selectedBranch || !selectedState || !selectedAddress) return;
+  useEffect(() => {
+    if (!signatories.length) {
+      setSelectedSignatoryId("");
+      return;
+    }
 
-    const newMapping = {
-      id: Date.now(),
-      branch: selectedBranch,
-      state: selectedState,
-      address: selectedAddress,
-    };
+    const selectedExists = signatories.some(
+      (signatory) => signatory.id === selectedSignatoryId,
+    );
 
-    setMappings((prev) => [...prev, newMapping]);
+    if (!selectedExists) {
+      setSelectedSignatoryId(signatories[0].id);
+    }
+  }, [selectedSignatoryId, signatories]);
+
+  useEffect(() => {
+    if (!signatories.length) return;
+
+    setMappings((prev) =>
+      prev.map((item) => {
+        const matchedSignatory =
+          signatories.find((signatory) => signatory.id === item.signatoryId) ||
+          signatories.find(
+            (signatory) =>
+              signatory.name === item.authorisedSignatory &&
+              signatory.designation === item.designationOfAuthorisedSignatory,
+          );
+
+        if (!matchedSignatory) return item;
+
+        return {
+          ...item,
+          signatoryId: matchedSignatory.id,
+          authorisedSignatory: matchedSignatory.name,
+          designationOfAuthorisedSignatory: matchedSignatory.designation,
+          signature: matchedSignatory.signatureDataUrl,
+        };
+      }),
+    );
+  }, [signatories]);
+
+  const selectedSignatory = signatories.find(
+    (signatory) => signatory.id === selectedSignatoryId,
+  );
+
+  const resetForm = () => {
     setSelectedBranch("");
     setSelectedState("");
     setSelectedAddress("");
+    setEditingMappingId(null);
+  };
+
+  const handleSaveMapping = () => {
+    if (
+      !selectedBranch ||
+      !selectedState ||
+      !selectedAddress ||
+      !selectedSignatory
+    ) {
+      return;
+    }
+
+    const mappingPayload = {
+      branch: selectedBranch,
+      state: selectedState,
+      address: selectedAddress,
+      signatoryId: selectedSignatory.id,
+      authorisedSignatory: selectedSignatory.name,
+      designationOfAuthorisedSignatory: selectedSignatory.designation,
+      signature: selectedSignatory.signatureDataUrl,
+    };
+
+    if (editingMappingId !== null) {
+      setMappings((prev) =>
+        prev.map((item) =>
+          item.id === editingMappingId
+            ? {
+                ...item,
+                ...mappingPayload,
+              }
+            : item,
+        ),
+      );
+      resetForm();
+      return;
+    }
+
+    setMappings((prev) => [
+      ...prev,
+      {
+        id: Date.now(),
+        ...mappingPayload,
+      },
+    ]);
+    resetForm();
   };
 
   const removeMapping = (id) => {
     setMappings((prev) => prev.filter((item) => item.id !== id));
+    if (editingMappingId === id) {
+      resetForm();
+    }
+  };
+
+  const editMapping = (mapping) => {
+    setEditingMappingId(mapping.id);
+    setSelectedState(mapping.state);
+    setSelectedBranch(mapping.branch);
+    setSelectedAddress(mapping.address);
+
+    const matchedSignatory =
+      signatories.find((signatory) => signatory.id === mapping.signatoryId) ||
+      signatories.find(
+        (signatory) =>
+          signatory.name === mapping.authorisedSignatory &&
+          signatory.designation === mapping.designationOfAuthorisedSignatory,
+      );
+
+    setSelectedSignatoryId(matchedSignatory?.id || "");
+  };
+
+  const cancelEdit = () => {
+    resetForm();
   };
 
   return (
@@ -86,7 +193,7 @@ export default function BranchMapping() {
             </select>
           </div>
 
-          <div className="lg:col-span-4">
+          <div className="lg:col-span-3">
             <label className="mb-1 block text-xs font-medium text-slate-600">
               Branch
             </label>
@@ -112,7 +219,7 @@ export default function BranchMapping() {
           </div>
 
           {/* Address */}
-          <div className="lg:col-span-4">
+          <div className="lg:col-span-3">
             <label className="mb-1 block text-xs font-medium text-slate-600">
               Address
             </label>
@@ -124,16 +231,61 @@ export default function BranchMapping() {
             />
           </div>
 
-          {/* Button */}
           <div className="lg:col-span-2">
+            <label className="mb-1 block text-xs font-medium text-slate-600">
+              Authorised Signatory
+            </label>
+            <select
+              value={selectedSignatoryId}
+              onChange={(e) => setSelectedSignatoryId(e.target.value)}
+              disabled={signatories.length === 0}
+              className="h-11 w-full appearance-none rounded-xl border border-slate-200 bg-white px-3 pr-9 text-sm text-slate-700 shadow-sm outline-none transition disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400 focus:border-slate-300 focus:ring-2 focus:ring-slate-100"
+            >
+              <option value="">
+                {signatories.length === 0
+                  ? "Add signatory first"
+                  : "Select signatory"}
+              </option>
+              {signatories.map((signatory) => (
+                <option key={signatory.id} value={signatory.id}>
+                  {signatory.name}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="lg:col-span-2">
+            <label className="mb-1 block text-xs font-medium text-slate-600">
+              Designation
+            </label>
+            <input
+              value={selectedSignatory?.designation || ""}
+              readOnly
+              placeholder="Select signatory"
+              className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-3 text-sm text-slate-700 shadow-sm outline-none"
+            />
+          </div>
+
+          <div className="lg:col-span-1">
             <button
-              onClick={handleAddMapping}
+              onClick={handleSaveMapping}
               className="h-11 w-full rounded-xl bg-emerald-600 px-4 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-200"
             >
-              Add Mapping
+              {editingMappingId !== null ? "Update" : "Add Mapping"}
             </button>
           </div>
         </div>
+
+        {editingMappingId !== null ? (
+          <div className="mt-3 flex justify-end">
+            <button
+              onClick={cancelEdit}
+              className="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm transition hover:bg-slate-50"
+            >
+              Cancel Edit
+            </button>
+          </div>
+        ) : null}
       </div>
 
       {/* Mapping Table */}
@@ -144,6 +296,9 @@ export default function BranchMapping() {
               <th className="text-left px-4 py-3 font-medium">State</th>
               <th className="text-left px-4 py-3 font-medium">Branch</th>
               <th className="text-left px-4 py-3 font-medium">Address</th>
+              <th className="text-left px-4 py-3 font-medium">Authorised Signatory</th>
+              <th className="text-left px-4 py-3 font-medium">Designation of Authorised Signatory</th>
+              <th className="text-left px-4 py-3 font-medium">Signature</th>
               <th className="text-left px-4 py-3 font-medium">Action</th>
             </tr>
           </thead>
@@ -151,7 +306,7 @@ export default function BranchMapping() {
           <tbody>
             {mappings.length === 0 ? (
               <tr>
-                <td colSpan="4" className="text-center px-4 py-6 text-slate-500">
+                <td colSpan="7" className="text-center px-4 py-6 text-slate-500">
                   No branch mappings created yet.
                 </td>
               </tr>
@@ -161,13 +316,34 @@ export default function BranchMapping() {
                   <td className="px-4 py-3">{map.state}</td>
                   <td className="px-4 py-3">{map.branch}</td>
                   <td className="px-4 py-3">{map.address}</td>
+                  <td className="px-4 py-3">{map.authorisedSignatory}</td>
+                  <td className="px-4 py-3">{map.designationOfAuthorisedSignatory}</td>
                   <td className="px-4 py-3">
-                    <button
-                      onClick={() => removeMapping(map.id)}
-                      className="text-red-600 hover:underline"
-                    >
-                      Remove
-                    </button>
+                    {map.signature ? (
+                      <img
+                        src={map.signature}
+                        alt={`${map.authorisedSignatory} signature`}
+                        className="h-12 rounded-md border border-slate-200 bg-white px-2 py-1"
+                      />
+                    ) : (
+                      <span className="text-slate-500">No signature uploaded</span>
+                    )}
+                  </td>
+                  <td className="px-4 py-3">
+                    <div className="flex gap-3">
+                      <button
+                        onClick={() => editMapping(map)}
+                        className="text-emerald-700 hover:underline"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => removeMapping(map.id)}
+                        className="text-red-600 hover:underline"
+                      >
+                        Remove
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))

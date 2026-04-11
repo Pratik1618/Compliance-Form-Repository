@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { defaultAuthorisedSignatories } from "../Constants/authorisedSignatories";
+import AuthorisedSignatories from "./AuthorisedSignatories";
 import Dashboard from "./Dashboard";
 import BranchMapping from "./BranchMapping";
 import Login from "./Login";
@@ -6,6 +8,60 @@ import Login from "./Login";
 export default function Layout() {
   const [activePage, setActivePage] = useState("dashboard");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [authorisedSignatories, setAuthorisedSignatories] = useState(() => {
+    const storedSignatories = window.localStorage.getItem(
+      "authorised-signatories",
+    );
+
+    if (!storedSignatories) {
+      return defaultAuthorisedSignatories;
+    }
+
+    try {
+      const parsedSignatories = JSON.parse(storedSignatories);
+      const sanitizedSignatories = parsedSignatories.filter(
+        (signatory) =>
+          !(
+            signatory.name === "Manoj Mohan Kambli" &&
+            signatory.designation === "HR-Director"
+          ),
+      );
+
+      return sanitizedSignatories.length > 0
+        ? sanitizedSignatories
+        : defaultAuthorisedSignatories;
+    } catch {
+      return defaultAuthorisedSignatories;
+    }
+  });
+
+  useEffect(() => {
+    window.localStorage.setItem(
+      "authorised-signatories",
+      JSON.stringify(authorisedSignatories),
+    );
+  }, [authorisedSignatories]);
+
+  const handleAddSignatory = (signatory) => {
+    const signatoryId = `${signatory.name}-${signatory.designation}`
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/(^-|-$)/g, "");
+
+    setAuthorisedSignatories((prev) => [
+      ...prev,
+      {
+        id: `${signatoryId}-${Date.now()}`,
+        ...signatory,
+      },
+    ]);
+  };
+
+  const handleRemoveSignatory = (signatoryId) => {
+    setAuthorisedSignatories((prev) =>
+      prev.filter((signatory) => signatory.id !== signatoryId),
+    );
+  };
 
   if (!isAuthenticated) {
     return <Login onSuccess={() => setIsAuthenticated(true)} />;
@@ -48,13 +104,33 @@ export default function Layout() {
           >
             Branch Mapping
           </button>
+
+          <button
+            onClick={() => setActivePage("signatories")}
+            className={`w-full text-left px-4 py-2 rounded-lg text-sm font-medium transition ${
+              activePage === "signatories"
+                ? "bg-emerald-50 text-emerald-700"
+                : "text-slate-600 hover:bg-slate-100"
+            }`}
+          >
+            Authorised Signatories
+          </button>
         </nav>
       </aside>
 
       {/* Main Content */}
       <main className="flex-1 p-6">
         {activePage === "dashboard" && <Dashboard />}
-        {activePage === "mapping" && <BranchMapping />}
+        {activePage === "mapping" && (
+          <BranchMapping signatories={authorisedSignatories} />
+        )}
+        {activePage === "signatories" && (
+          <AuthorisedSignatories
+            signatories={authorisedSignatories}
+            onAddSignatory={handleAddSignatory}
+            onRemoveSignatory={handleRemoveSignatory}
+          />
+        )}
       </main>
     </div>
   );
