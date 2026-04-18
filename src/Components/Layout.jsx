@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { defaultAuthorisedSignatories } from "../Constants/authorisedSignatories";
 import AuthorisedSignatories from "./AuthorisedSignatories";
+import ClientComplianceChecklist from "./ClientComplianceChecklist";
 import Dashboard from "./Dashboard";
 import BranchMapping from "./BranchMapping";
 import Login from "./Login";
@@ -106,6 +107,17 @@ export default function Layout() {
           </button>
 
           <button
+            onClick={() => setActivePage("client-checklist")}
+            className={`w-full text-left px-4 py-2 rounded-lg text-sm font-medium transition ${
+              activePage === "client-checklist"
+                ? "bg-emerald-50 text-emerald-700"
+                : "text-slate-600 hover:bg-slate-100"
+            }`}
+          >
+            Client Checklist
+          </button>
+
+          <button
             onClick={() => setActivePage("signatories")}
             className={`w-full text-left px-4 py-2 rounded-lg text-sm font-medium transition ${
               activePage === "signatories"
@@ -124,6 +136,7 @@ export default function Layout() {
         {activePage === "mapping" && (
           <BranchMapping signatories={authorisedSignatories} />
         )}
+        {activePage === "client-checklist" && <ClientComplianceChecklist />}
         {activePage === "signatories" && (
           <AuthorisedSignatories
             signatories={authorisedSignatories}
