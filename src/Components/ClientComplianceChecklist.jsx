@@ -270,7 +270,6 @@ export default function ClientComplianceChecklist() {
                 <th className="px-4 py-3 text-left font-medium">No.</th>
                 <th className="px-4 py-3 text-left font-medium">Form Name</th>
                 <th className="px-4 py-3 text-left font-medium">Category</th>
-                <th className="px-4 py-3 text-left font-medium">Repository Path</th>
                 <th className="px-4 py-3 text-left font-medium">Status</th>
               </tr>
             </thead>
@@ -280,9 +279,6 @@ export default function ClientComplianceChecklist() {
                   <td className="px-4 py-3 text-slate-700">{index + 1}</td>
                   <td className="px-4 py-3 text-slate-700">{form.label}</td>
                   <td className="px-4 py-3 text-slate-700">{form.category}</td>
-                  <td className="px-4 py-3 text-slate-500">
-                    {form.path || "Not found in public/Compliance"}
-                  </td>
                   <td className="px-4 py-3">
                     <span
                       className={`rounded-full px-2.5 py-1 text-xs font-medium ${
