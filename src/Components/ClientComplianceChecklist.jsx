@@ -4,6 +4,8 @@ import {
   clientComplianceOptions,
 } from "../Constants/clientComplianceChecklist";
 
+const MAHINDRA_CLIENT = "Mahindra and Mahindra Finance Limited";
+
 const getFileType = (filePath) => {
   const lower = filePath.toLowerCase();
   if (lower.endsWith(".pdf")) {
@@ -35,6 +37,7 @@ export default function ClientComplianceChecklist() {
   const [searchTerm, setSearchTerm] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
   const [error, setError] = useState("");
+  const [selectedStateFilter, setSelectedStateFilter] = useState("");
 
   const formDropdownRef = useRef(null);
 
@@ -43,18 +46,36 @@ export default function ClientComplianceChecklist() {
     [selectedClient],
   );
 
-  const filteredForms = useMemo(() => {
-    if (!searchTerm) {
-      return clientForms;
+  const isMahindraClient = selectedClient === MAHINDRA_CLIENT;
+
+  const availableStates = useMemo(() => {
+    if (!isMahindraClient) {
+      return [];
     }
 
+    return [...new Set(clientForms.flatMap((form) => form.states || []))].sort();
+  }, [clientForms, isMahindraClient]);
+
+  const filteredForms = useMemo(() => {
     const normalizedTerm = searchTerm.toLowerCase();
-    return clientForms.filter(
-      (form) =>
+
+    return clientForms.filter((form) => {
+      const matchesSearch =
+        !normalizedTerm ||
         form.label.toLowerCase().includes(normalizedTerm) ||
-        form.category.toLowerCase().includes(normalizedTerm),
-    );
-  }, [clientForms, searchTerm]);
+        form.category.toLowerCase().includes(normalizedTerm);
+
+      if (!matchesSearch) {
+        return false;
+      }
+
+      if (!isMahindraClient || !selectedStateFilter) {
+        return true;
+      }
+
+      return (form.states || []).includes(selectedStateFilter);
+    });
+  }, [clientForms, isMahindraClient, searchTerm, selectedStateFilter]);
 
   const groupedForms = useMemo(
     () =>
@@ -89,6 +110,7 @@ export default function ClientComplianceChecklist() {
     setSelectedFormLabel("");
     setSearchTerm("");
     setError("");
+    setSelectedStateFilter("");
   }, [selectedClient]);
 
   const handleDownload = async () => {
@@ -160,7 +182,30 @@ export default function ClientComplianceChecklist() {
             </select>
           </div>
 
-          <div className="relative lg:col-span-7" ref={formDropdownRef}>
+          {isMahindraClient ? (
+            <div className="lg:col-span-3">
+              <label className="mb-1 block text-xs font-medium text-slate-600">
+                State
+              </label>
+              <select
+                value={selectedStateFilter}
+                onChange={(event) => setSelectedStateFilter(event.target.value)}
+                className="h-11 w-full appearance-none rounded-xl border border-slate-200 bg-white px-3 pr-9 text-sm text-slate-700 shadow-sm outline-none transition focus:border-slate-300 focus:ring-2 focus:ring-slate-100"
+              >
+                <option value="">All states</option>
+                {availableStates.map((state) => (
+                  <option key={state} value={state}>
+                    {state}
+                  </option>
+                ))}
+              </select>
+            </div>
+          ) : null}
+
+          <div
+            className={`relative ${isMahindraClient ? "lg:col-span-4" : "lg:col-span-7"}`}
+            ref={formDropdownRef}
+          >
             <label className="mb-1 block text-xs font-medium text-slate-600">
               Form
             </label>
@@ -255,6 +300,21 @@ export default function ClientComplianceChecklist() {
             {error}
           </div>
         ) : null}
+        {isMahindraClient ? (
+          <div className="mt-3 flex flex-wrap gap-2 text-xs text-slate-600">
+            <span className="rounded-full bg-slate-100 px-3 py-1">
+              Forms: {filteredForms.length}
+            </span>
+            <span className="rounded-full bg-slate-100 px-3 py-1">
+              States: {availableStates.length}
+            </span>
+            {selectedStateFilter ? (
+              <span className="rounded-full bg-emerald-50 px-3 py-1 text-emerald-700">
+                Filtered by: {selectedStateFilter}
+              </span>
+            ) : null}
+          </div>
+        ) : null}
       </div>
 
       <div className="mt-4 rounded-2xl border border-slate-200 bg-white shadow-sm">
@@ -270,15 +330,39 @@ export default function ClientComplianceChecklist() {
                 <th className="px-4 py-3 text-left font-medium">No.</th>
                 <th className="px-4 py-3 text-left font-medium">Form Name</th>
                 <th className="px-4 py-3 text-left font-medium">Category</th>
+                {isMahindraClient ? (
+                  <th className="px-4 py-3 text-left font-medium">State Count</th>
+                ) : null}
+                {isMahindraClient ? (
+                  <th className="px-4 py-3 text-left font-medium">Not Applicable</th>
+                ) : null}
                 <th className="px-4 py-3 text-left font-medium">Status</th>
               </tr>
             </thead>
             <tbody>
-              {clientForms.map((form, index) => (
+              {filteredForms.map((form, index) => (
                 <tr key={form.label} className="border-t border-slate-100">
                   <td className="px-4 py-3 text-slate-700">{index + 1}</td>
                   <td className="px-4 py-3 text-slate-700">{form.label}</td>
                   <td className="px-4 py-3 text-slate-700">{form.category}</td>
+                  {isMahindraClient ? (
+                    <td className="px-4 py-3 text-slate-700">
+                      {form.stateCount || form.states?.length || 0}
+                    </td>
+                  ) : null}
+                  {isMahindraClient ? (
+                    <td className="px-4 py-3 text-slate-700">
+                      {form.notApplicableStates?.length ? (
+                        <span className="rounded-full bg-amber-50 px-2.5 py-1 text-xs font-medium text-amber-700">
+                          {form.notApplicableStates.length} state(s)
+                        </span>
+                      ) : (
+                        <span className="rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-medium text-emerald-700">
+                          None
+                        </span>
+                      )}
+                    </td>
+                  ) : null}
                   <td className="px-4 py-3">
                     <span
                       className={`rounded-full px-2.5 py-1 text-xs font-medium ${
@@ -295,6 +379,11 @@ export default function ClientComplianceChecklist() {
             </tbody>
           </table>
         </div>
+        {isMahindraClient && selectedStateFilter ? (
+          <div className="border-t border-slate-200 px-4 py-3 text-xs text-slate-600">
+            Showing Mahindra records applicable to <span className="font-semibold">{selectedStateFilter}</span>.
+          </div>
+        ) : null}
       </div>
     </div>
   );

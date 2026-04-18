@@ -1,0 +1,362 @@
+[
+  {
+    "Act": "Bonus Act",
+    "Description": "Bonus Register",
+    "Forms": "Form C",
+    "State_Count": "21",
+    "States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Karnataka, Kerala, Maharashtra, Orissa, Rajasthan, Tamil Nadu, Tripura, Uttar Pradesh, Uttarakhand, West Bengal",
+    "Not_Applicable_States": ""
+  },
+  {
+    "Act": "Bonus Act",
+    "Description": "Form D - Annual Return",
+    "Forms": "Form D",
+    "State_Count": "21",
+    "States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Karnataka, Kerala, Maharashtra, Orissa, Rajasthan, Tamil Nadu, Tripura, Uttar Pradesh, Uttarakhand, West Bengal",
+    "Not_Applicable_States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Karnataka, Kerala, Maharashtra, Orissa, Rajasthan, Tamil Nadu, Tripura, Uttar Pradesh, Uttarakhand, West Bengal"
+  },
+  {
+    "Act": "Child Labour Prohibition And Regulation Act 1986",
+    "Description": "Prohibition Of Employment Of Child Labour",
+    "Forms": "Declaration on Company Letter Head",
+    "State_Count": "21",
+    "States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Karnataka, Kerala, Maharashtra, Orissa, Rajasthan, Tamil Nadu, Tripura, Uttar Pradesh, Uttarakhand, West Bengal",
+    "Not_Applicable_States": ""
+  },
+  {
+    "Act": "Employee Compensation Act, 2010",
+    "Description": "EC/WC Policy",
+    "Forms": "Insurance Policy",
+    "State_Count": "21",
+    "States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Karnataka, Kerala, Maharashtra, Orissa, Rajasthan, Tamil Nadu, Tripura, Uttar Pradesh, Uttarakhand, West Bengal",
+    "Not_Applicable_States": ""
+  },
+  {
+    "Act": "Employees Provident Fund Act & Scheme",
+    "Description": "Arrears of PF - If applicable for audit the period",
+    "Forms": "PF Challan",
+    "State_Count": "21",
+    "States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Karnataka, Kerala, Maharashtra, Orissa, Rajasthan, Tamil Nadu, Tripura, Uttar Pradesh, Uttarakhand, West Bengal",
+    "Not_Applicable_States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Karnataka, Kerala, Maharashtra, Orissa, Rajasthan, Tamil Nadu, Tripura, Uttar Pradesh, Uttarakhand, West Bengal"
+  },
+  {
+    "Act": "Employees Provident Fund Act & Scheme",
+    "Description": "PF Declaration",
+    "Forms": "Form 11",
+    "State_Count": "21",
+    "States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Karnataka, Kerala, Maharashtra, Orissa, Rajasthan, Tamil Nadu, Tripura, Uttar Pradesh, Uttarakhand, West Bengal",
+    "Not_Applicable_States": "Himachal Pradesh, Uttarakhand"
+  },
+  {
+    "Act": "Employees Provident Fund Act & Scheme",
+    "Description": "PF ECR Statement with employee highlighted",
+    "Forms": "Electronic Challan Reciept (ECR)",
+    "State_Count": "21",
+    "States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Karnataka, Kerala, Maharashtra, Orissa, Rajasthan, Tamil Nadu, Tripura, Uttar Pradesh, Uttarakhand, West Bengal",
+    "Not_Applicable_States": ""
+  },
+  {
+    "Act": "Employees Provident Fund Act & Scheme",
+    "Description": "Remittance of the Contributions to be made before 15th of every month",
+    "Forms": "PF Challan, Bank receipt & Remittance confirmation slip",
+    "State_Count": "21",
+    "States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Karnataka, Kerala, Maharashtra, Orissa, Rajasthan, Tamil Nadu, Tripura, Uttar Pradesh, Uttarakhand, West Bengal",
+    "Not_Applicable_States": ""
+  },
+  {
+    "Act": "Employees State Insurance Act & Scheme",
+    "Description": "ESI Accident Register",
+    "Forms": "Form 11",
+    "State_Count": "21",
+    "States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Karnataka, Kerala, Maharashtra, Orissa, Rajasthan, Tamil Nadu, Tripura, Uttar Pradesh, Uttarakhand, West Bengal",
+    "Not_Applicable_States": ""
+  },
+  {
+    "Act": "Employees State Insurance Act & Scheme",
+    "Description": "ESI Cards (TIC or E-Pehchan) ",
+    "Forms": "ESI Card",
+    "State_Count": "21",
+    "States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Karnataka, Kerala, Maharashtra, Orissa, Rajasthan, Tamil Nadu, Tripura, Uttar Pradesh, Uttarakhand, West Bengal",
+    "Not_Applicable_States": "Chandigarh, Gujarat, Uttarakhand"
+  },
+  {
+    "Act": "Employees State Insurance Act & Scheme",
+    "Description": "ESI ECR with employee highlighted",
+    "Forms": "ECR",
+    "State_Count": "21",
+    "States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Karnataka, Kerala, Maharashtra, Orissa, Rajasthan, Tamil Nadu, Tripura, Uttar Pradesh, Uttarakhand, West Bengal",
+    "Not_Applicable_States": "Delhi"
+  },
+  {
+    "Act": "Employees State Insurance Act & Scheme",
+    "Description": "ESI Registration Certificate & 17 digit code allotment letter copy",
+    "Forms": "ESI Statewise Sub Code Registration",
+    "State_Count": "21",
+    "States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Karnataka, Kerala, Maharashtra, Orissa, Rajasthan, Tamil Nadu, Tripura, Uttar Pradesh, Uttarakhand, West Bengal",
+    "Not_Applicable_States": "Delhi"
+  },
+  {
+    "Act": "Employees State Insurance Act & Scheme",
+    "Description": "Monthly remittance Online challan",
+    "Forms": "Challan",
+    "State_Count": "21",
+    "States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Karnataka, Kerala, Maharashtra, Orissa, Rajasthan, Tamil Nadu, Tripura, Uttar Pradesh, Uttarakhand, West Bengal",
+    "Not_Applicable_States": "Delhi"
+  },
+  {
+    "Act": "Equal Remuneration Act",
+    "Description": "Equal Remuneration Form ",
+    "Forms": "Form D",
+    "State_Count": "21",
+    "States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Karnataka, Kerala, Maharashtra, Orissa, Rajasthan, Tamil Nadu, Tripura, Uttar Pradesh, Uttarakhand, West Bengal",
+    "Not_Applicable_States": ""
+  },
+  {
+    "Act": "Labour Welfare Fund Act",
+    "Description": "Payment of contribution along with statement of contributions to send before 15th January (Labour Welfare Fund Act,)",
+    "Forms": "Statewise",
+    "State_Count": "21",
+    "States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Karnataka, Kerala, Maharashtra, Orissa, Rajasthan, Tamil Nadu, Tripura, Uttar Pradesh, Uttarakhand, West Bengal",
+    "Not_Applicable_States": "Andhra Pradesh, Assam, BIHAR, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Rajasthan, Uttar Pradesh, Uttarakhand"
+  },
+  {
+    "Act": "Labour Welfare Fund Act",
+    "Description": "Register of unpaid accumulations, fines and deductions (Labour Welfare Fund Act,)",
+    "Forms": "Statewise",
+    "State_Count": "21",
+    "States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Karnataka, Kerala, Maharashtra, Orissa, Rajasthan, Tamil Nadu, Tripura, Uttar Pradesh, Uttarakhand, West Bengal",
+    "Not_Applicable_States": "Andhra Pradesh, Assam, BIHAR, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Rajasthan, Uttar Pradesh, Uttarakhand"
+  },
+  {
+    "Act": "Maternity Benefit Act",
+    "Description": "Maternity Register/Muster Roll",
+    "Forms": "Form 10 / Form A",
+    "State_Count": "21",
+    "States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Karnataka, Kerala, Maharashtra, Orissa, Rajasthan, Tamil Nadu, Tripura, Uttar Pradesh, Uttarakhand, West Bengal",
+    "Not_Applicable_States": ""
+  },
+  {
+    "Act": "Maternity Benefit Act",
+    "Description": "Maternity annual returns",
+    "Forms": "Form L, M, N and O",
+    "State_Count": "21",
+    "States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Karnataka, Kerala, Maharashtra, Orissa, Rajasthan, Tamil Nadu, Tripura, Uttar Pradesh, Uttarakhand, West Bengal",
+    "Not_Applicable_States": "Andhra Pradesh"
+  },
+  {
+    "Act": "Minimum Wages Act",
+    "Description": "Annual Returns Under Minimum Wages Act 1948",
+    "Forms": "Form III",
+    "State_Count": "21",
+    "States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Karnataka, Kerala, Maharashtra, Orissa, Rajasthan, Tamil Nadu, Tripura, Uttar Pradesh, Uttarakhand, West Bengal",
+    "Not_Applicable_States": "Andhra Pradesh"
+  },
+  {
+    "Act": "National & Festival Holidays Act",
+    "Description": "Wages To Be Paid towards National & Festival Holidays",
+    "Forms": "Statewise",
+    "State_Count": "21",
+    "States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Karnataka, Kerala, Maharashtra, Orissa, Rajasthan, Tamil Nadu, Tripura, Uttar Pradesh, Uttarakhand, West Bengal",
+    "Not_Applicable_States": ""
+  },
+  {
+    "Act": "Payment of Gratuity Act",
+    "Description": "Gratuity Settlement (for eligible employees)",
+    "Forms": "Form L",
+    "State_Count": "21",
+    "States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Karnataka, Kerala, Maharashtra, Orissa, Rajasthan, Tamil Nadu, Tripura, Uttar Pradesh, Uttarakhand, West Bengal",
+    "Not_Applicable_States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Karnataka, Kerala, Maharashtra, Orissa, Rajasthan, Tamil Nadu, Tripura, Uttar Pradesh, Uttarakhand, West Bengal"
+  },
+  {
+    "Act": "Payment of Gratuity Act",
+    "Description": "Nomination Form",
+    "Forms": "Form F",
+    "State_Count": "21",
+    "States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Karnataka, Kerala, Maharashtra, Orissa, Rajasthan, Tamil Nadu, Tripura, Uttar Pradesh, Uttarakhand, West Bengal",
+    "Not_Applicable_States": ""
+  },
+  {
+    "Act": "Payment of Wages Act",
+    "Description": "Annual Returns Under Payment Of Wages Act 1936",
+    "Forms": "Annual Returns Under Payment Of Wages Act 1936",
+    "State_Count": "21",
+    "States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Karnataka, Kerala, Maharashtra, Orissa, Rajasthan, Tamil Nadu, Tripura, Uttar Pradesh, Uttarakhand, West Bengal",
+    "Not_Applicable_States": "Andhra Pradesh, Jammu & Kashmir, Karnataka, Tripura"
+  },
+  {
+    "Act": "Payment of Wages Act",
+    "Description": "Disbursement of Wages - before 7th,if the workforce exceeds 1000 - then 10th\nand \nProof of payment of wages to the employees",
+    "Forms": "Declaration on Company Letter Head",
+    "State_Count": "21",
+    "States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Karnataka, Kerala, Maharashtra, Orissa, Rajasthan, Tamil Nadu, Tripura, Uttar Pradesh, Uttarakhand, West Bengal",
+    "Not_Applicable_States": ""
+  },
+  {
+    "Act": "Payment of Wages Act",
+    "Description": "Form 1 Nomination",
+    "Forms": "Form 1",
+    "State_Count": "21",
+    "States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Karnataka, Kerala, Maharashtra, Orissa, Rajasthan, Tamil Nadu, Tripura, Uttar Pradesh, Uttarakhand, West Bengal",
+    "Not_Applicable_States": ""
+  },
+  {
+    "Act": "Payment of Wages Act",
+    "Description": "Proof Of Payment - Full And Final Settlement",
+    "Forms": "Proof Of Payment - Full And Final Settlement",
+    "State_Count": "21",
+    "States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Karnataka, Kerala, Maharashtra, Orissa, Rajasthan, Tamil Nadu, Tripura, Uttar Pradesh, Uttarakhand, West Bengal",
+    "Not_Applicable_States": "Andhra Pradesh, Delhi"
+  },
+  {
+    "Act": "Private Security Agency Regulation ActÂ ",
+    "Description": "Registration of Security Agency (PSARA)",
+    "Forms": "Declaration on Company Letter Head",
+    "State_Count": "21",
+    "States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Karnataka, Kerala, Maharashtra, Orissa, Rajasthan, Tamil Nadu, Tripura, Uttar Pradesh, Uttarakhand, West Bengal",
+    "Not_Applicable_States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Karnataka, Kerala, Maharashtra, Orissa, Rajasthan, Tamil Nadu, Tripura, Uttar Pradesh, Uttarakhand, West Bengal"
+  },
+  {
+    "Act": "Professional Tax Act",
+    "Description": "PT Annual Return",
+    "Forms": "Statewise",
+    "State_Count": "21",
+    "States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Karnataka, Kerala, Maharashtra, Orissa, Rajasthan, Tamil Nadu, Tripura, Uttar Pradesh, Uttarakhand, West Bengal",
+    "Not_Applicable_States": "Chandigarh, Delhi, Haryana, Himachal Pradesh, Jammu & Kashmir, Rajasthan, Uttar Pradesh, Uttarakhand"
+  },
+  {
+    "Act": "Professional Tax Act",
+    "Description": "PT Challan",
+    "Forms": "Statewise",
+    "State_Count": "21",
+    "States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Karnataka, Kerala, Maharashtra, Orissa, Rajasthan, Tamil Nadu, Tripura, Uttar Pradesh, Uttarakhand, West Bengal",
+    "Not_Applicable_States": "Chandigarh, Delhi, Haryana, Himachal Pradesh, Jammu & Kashmir, Rajasthan, Uttar Pradesh, Uttarakhand"
+  },
+  {
+    "Act": "The Contract Labour (Regulation & Abolition) Act, 1970",
+    "Description": "Appointment Letters",
+    "Forms": "Statewise",
+    "State_Count": "21",
+    "States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Karnataka, Kerala, Maharashtra, Orissa, Rajasthan, Tamil Nadu, Tripura, Uttar Pradesh, Uttarakhand, West Bengal",
+    "Not_Applicable_States": "Delhi, Jammu & Kashmir"
+  },
+  {
+    "Act": "The Contract Labour (Regulation & Abolition) Act, 1970",
+    "Description": "Contract Labour License, if applicable",
+    "Forms": "Form VI",
+    "State_Count": "21",
+    "States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Karnataka, Kerala, Maharashtra, Orissa, Rajasthan, Tamil Nadu, Tripura, Uttar Pradesh, Uttarakhand, West Bengal",
+    "Not_Applicable_States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Orissa, Tamil Nadu, Tripura"
+  },
+  {
+    "Act": "The Contract Labour (Regulation & Abolition) Act, 1970",
+    "Description": "Half Yearly returns by contractors - before 30 days from the close of half-year",
+    "Forms": "Statewise",
+    "State_Count": "21",
+    "States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Karnataka, Kerala, Maharashtra, Orissa, Rajasthan, Tamil Nadu, Tripura, Uttar Pradesh, Uttarakhand, West Bengal",
+    "Not_Applicable_States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Orissa, Tamil Nadu, Tripura"
+  },
+  {
+    "Act": "The Contract Labour (Regulation & Abolition) Act, 1970",
+    "Description": "Muster Roll / Muster Roll Cum Wage register / Muster Wage Register",
+    "Forms": "StateWise",
+    "State_Count": "21",
+    "States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Karnataka, Kerala, Maharashtra, Orissa, Rajasthan, Tamil Nadu, Tripura, Uttar Pradesh, Uttarakhand, West Bengal",
+    "Not_Applicable_States": ""
+  },
+  {
+    "Act": "The Contract Labour (Regulation & Abolition) Act, 1970",
+    "Description": "Rate of Wages under Contract Labour Act (Date, Time, place of the payment of wages, Working hours, Rate of Wages, Name of the inspectors' etc. to be furnished)",
+    "Forms": "StateWise",
+    "State_Count": "21",
+    "States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Karnataka, Kerala, Maharashtra, Orissa, Rajasthan, Tamil Nadu, Tripura, Uttar Pradesh, Uttarakhand, West Bengal",
+    "Not_Applicable_States": ""
+  },
+  {
+    "Act": "The Contract Labour (Regulation & Abolition) Act, 1970",
+    "Description": "Register Of Advances, Deductions, Damage or Loss, Fines, Overtime, Wages",
+    "Forms": "Statewise",
+    "State_Count": "21",
+    "States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Karnataka, Kerala, Maharashtra, Orissa, Rajasthan, Tamil Nadu, Tripura, Uttar Pradesh, Uttarakhand, West Bengal",
+    "Not_Applicable_States": ""
+  },
+  {
+    "Act": "The Contract Labour (Regulation & Abolition) Act, 1970",
+    "Description": "Register of workmen employed by contractor",
+    "Forms": "Statewise",
+    "State_Count": "21",
+    "States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Karnataka, Kerala, Maharashtra, Orissa, Rajasthan, Tamil Nadu, Tripura, Uttar Pradesh, Uttarakhand, West Bengal",
+    "Not_Applicable_States": ""
+  },
+  {
+    "Act": "The Contract Labour (Regulation & Abolition) Act, 1970",
+    "Description": "Sent a Notice of commencement/completion of contract work",
+    "Forms": "Statewise",
+    "State_Count": "21",
+    "States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Karnataka, Kerala, Maharashtra, Orissa, Rajasthan, Tamil Nadu, Tripura, Uttar Pradesh, Uttarakhand, West Bengal",
+    "Not_Applicable_States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Orissa, Tamil Nadu, Tripura"
+  },
+  {
+    "Act": "The Contract Labour (Regulation & Abolition) Act, 1970",
+    "Description": "Service Certificate",
+    "Forms": "Statewise",
+    "State_Count": "21",
+    "States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Karnataka, Kerala, Maharashtra, Orissa, Rajasthan, Tamil Nadu, Tripura, Uttar Pradesh, Uttarakhand, West Bengal",
+    "Not_Applicable_States": ""
+  },
+  {
+    "Act": "The Contract Labour (Regulation & Abolition) Act, 1970",
+    "Description": "Wage Slip",
+    "Forms": "Statewise",
+    "State_Count": "21",
+    "States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Karnataka, Kerala, Maharashtra, Orissa, Rajasthan, Tamil Nadu, Tripura, Uttar Pradesh, Uttarakhand, West Bengal",
+    "Not_Applicable_States": ""
+  },
+  {
+    "Act": "The Contract Labour (Regulation & Abolition) Act, 1970",
+    "Description": "Wage register",
+    "Forms": "Statewise",
+    "State_Count": "21",
+    "States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Karnataka, Kerala, Maharashtra, Orissa, Rajasthan, Tamil Nadu, Tripura, Uttar Pradesh, Uttarakhand, West Bengal",
+    "Not_Applicable_States": ""
+  },
+  {
+    "Act": "The Maharashtra Private Security Guards (Regulation Of Employment And Welfare) Act, 1981",
+    "Description": "Application for exemption with consent letter and Exhibit C under Security Guard Board Regulations - Only for Maharashtra",
+    "Forms": "Declaration on Company Letter Head",
+    "State_Count": "21",
+    "States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Karnataka, Kerala, Maharashtra, Orissa, Rajasthan, Tamil Nadu, Tripura, Uttar Pradesh, Uttarakhand, West Bengal",
+    "Not_Applicable_States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Karnataka, Kerala, Maharashtra, Orissa, Rajasthan, Tamil Nadu, Tripura, Uttar Pradesh, Uttarakhand, West Bengal"
+  },
+  {
+    "Act": "The Maharashtra Private Security Guards (Regulation Of Employment And Welfare) Act, 1981",
+    "Description": "Deployment of Guards",
+    "Forms": "Declaration on Company Letter Head",
+    "State_Count": "21",
+    "States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Karnataka, Kerala, Maharashtra, Orissa, Rajasthan, Tamil Nadu, Tripura, Uttar Pradesh, Uttarakhand, West Bengal",
+    "Not_Applicable_States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Karnataka, Kerala, Maharashtra, Orissa, Rajasthan, Tamil Nadu, Tripura, Uttar Pradesh, Uttarakhand, West Bengal"
+  },
+  {
+    "Act": "The Maharashtra Private Security Guards (Regulation Of Employment And Welfare) Act, 1981",
+    "Description": "Police Verification of Guards (SGB)",
+    "Forms": "Declaration on Company Letter Head",
+    "State_Count": "21",
+    "States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Karnataka, Kerala, Maharashtra, Orissa, Rajasthan, Tamil Nadu, Tripura, Uttar Pradesh, Uttarakhand, West Bengal",
+    "Not_Applicable_States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Karnataka, Kerala, Maharashtra, Orissa, Rajasthan, Tamil Nadu, Tripura, Uttar Pradesh, Uttarakhand, West Bengal"
+  },
+  {
+    "Act": "The Maharashtra Private Security Guards (Regulation Of Employment And Welfare) Act, 1981",
+    "Description": "Renewal of Registration & Exemption (SGB)",
+    "Forms": "Declaration on Company Letter Head",
+    "State_Count": "21",
+    "States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Karnataka, Kerala, Maharashtra, Orissa, Rajasthan, Tamil Nadu, Tripura, Uttar Pradesh, Uttarakhand, West Bengal",
+    "Not_Applicable_States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Karnataka, Kerala, Maharashtra, Orissa, Rajasthan, Tamil Nadu, Tripura, Uttar Pradesh, Uttarakhand, West Bengal"
+  },
+  {
+    "Act": "The Sexual Harassment Of Women At Workplace (Prevention, Prohibition And Redressal) Act, 2013",
+    "Description": "Contravention of the Act",
+    "Forms": "Declaration on Company Letter Head",
+    "State_Count": "21",
+    "States": "Andhra Pradesh, Assam, BIHAR, Chandigarh, Chhattisgarh, Delhi, Gujarat, Haryana, Himachal Pradesh, Jammu & Kashmir, Jharkhand, Karnataka, Kerala, Maharashtra, Orissa, Rajasthan, Tamil Nadu, Tripura, Uttar Pradesh, Uttarakhand, West Bengal",
+    "Not_Applicable_States": ""
+  }
+]

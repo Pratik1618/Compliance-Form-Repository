@@ -1,3 +1,543 @@
+import mmfslRawData from "./mmfsl.json";
+
+const COMMON_21_STATES = [
+  "Andhra Pradesh",
+  "Assam",
+  "Bihar",
+  "Chandigarh",
+  "Chhattisgarh",
+  "Delhi",
+  "Gujarat",
+  "Haryana",
+  "Himachal Pradesh",
+  "Jammu & Kashmir",
+  "Jharkhand",
+  "Karnataka",
+  "Kerala",
+  "Maharashtra",
+  "Orissa",
+  "Rajasthan",
+  "Tamil Nadu",
+  "Tripura",
+  "Uttar Pradesh",
+  "Uttarakhand",
+  "West Bengal",
+];
+
+const buildChecklistFromCommonActs = (items) =>
+  items.map((item) => ({
+    label: item.form ? `${item.description} (${item.form})` : item.description,
+    category: item.category,
+    path: item.path || "",
+    frequency: "",
+    notes: "",
+    act: item.act,
+    form: item.form,
+    stateCount: item.stateCount,
+    states: item.states,
+    notApplicableStates: item.notApplicableStates || [],
+  }));
+
+const splitStateList = (value) =>
+  (value || "")
+    .split(",")
+    .map((state) => state.trim())
+    .filter(Boolean);
+
+const normalizeMmfslText = (value) =>
+  (value || "")
+    .replace(/Â/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+
+const inferMmfslPath = ({ Act, Description, Forms }) => {
+  const act = normalizeMmfslText(Act).toLowerCase();
+  const description = normalizeMmfslText(Description).toLowerCase();
+  const form = normalizeMmfslText(Forms).toLowerCase();
+
+  if (act.includes("bonus") && form.includes("form c")) {
+    return "/Central/Bouns/FORM C Bonus Paid To Employees.xlsx";
+  }
+  if (act.includes("bonus") && form.includes("form d")) {
+    return "/Central/Bouns/Form D.xlsx";
+  }
+  if (act.includes("employee compensation")) {
+    return "/Central/Compensation/Returns As To Compensation.xlsx";
+  }
+  if (act.includes("provident fund") && form.includes("form 11")) {
+    return "/Central/PF/Composite Declaration FORM 11.docx";
+  }
+  if (act.includes("state insurance") && description.includes("accident register")) {
+    return "/Central/ESIC/FORM 11.pdf";
+  }
+  if (act.includes("equal remuneration")) {
+    return "/Central/Wages/Form D (1).xlsx";
+  }
+  if (act.includes("labour welfare") && description.includes("payment of contribution")) {
+    return "/Gujrat/LWF/FORM A-1.docx";
+  }
+  if (act.includes("labour welfare") && description.includes("register of unpaid accumulations")) {
+    return "/West Bengal/Minimum Wages/FORM H Register Of Fines And Unpaid Accumulation LWF.docx";
+  }
+  if (act.includes("maternity") && description.includes("maternity register")) {
+    return "/MAHARASHTRA/FORM 10 Maternity Benefit Register.docx";
+  }
+  if (act.includes("maternity") && description.includes("annual returns")) {
+    return "/Central/Maternity/FORM L.xlsx";
+  }
+  if (act.includes("minimum wages") && form.includes("form iii")) {
+    return "/West Bengal/Minimum Wages/FORM III Annual Returns.docx";
+  }
+  if (act.includes("payment of gratuity") && form.includes("form l")) {
+    return "/Central/Gratuity/FORM L Payment Of Gratuity.xlsx";
+  }
+  if (act.includes("payment of gratuity") && form.includes("form f")) {
+    return "/Central/Gratuity/FORM F Nomination Form And Updation Of Nomination Form.xlsx";
+  }
+  if (act.includes("payment of wages") && description.includes("annual returns")) {
+    return "/West Bengal/POW/FORM IV Annual Return.docx";
+  }
+  if (act.includes("payment of wages") && description.includes("form 1 nomination")) {
+    return "/Central/PF/FORM 2 Nomination And Declaration Form For Unexempted-Exempted Establishments.pdf";
+  }
+  if (act.includes("professional tax") && description.includes("annual return")) {
+    return "/KARNATKA/FORM 9-A PT.docx";
+  }
+  if (act.includes("contract labour") && description.includes("half yearly returns")) {
+    return "/Central/CLRA Central/Form XXIV Half year return.xlsx";
+  }
+  if (act.includes("contract labour") && description.includes("muster roll")) {
+    return "/MAHARASHTRA/CLRA/FORM II Muster Roll Cum Wage Register.xlsx";
+  }
+  if (act.includes("contract labour") && description.includes("register of advances")) {
+    return "/Central/CLRA Central/Form XVII Register of Wages.xlsx";
+  }
+  if (act.includes("contract labour") && description.includes("register of workmen")) {
+    return "/MAHARASHTRA/CLRA/FORM XIII Register Of Workmen Employed By Contractor.docx";
+  }
+  if (act.includes("contract labour") && description.includes("service certificate")) {
+    return "/Gujrat/Factory/FORM No. 15.xlsx";
+  }
+  if (act.includes("contract labour") && description.includes("wage slip")) {
+    return "/Central/CLRA Central/Form XIX Wage Slip.xlsx";
+  }
+  if (act.includes("contract labour") && description.includes("wage register")) {
+    return "/Central/CLRA Central/Form XVII Register of Wages.xlsx";
+  }
+
+  return "";
+};
+
+const categorizeMmfslRecord = ({ Act, Description }) => {
+  const act = normalizeMmfslText(Act).toLowerCase();
+  const description = normalizeMmfslText(Description).toLowerCase();
+
+  if (act.includes("bonus")) return "Bonus";
+  if (act.includes("maternity")) return "Maternity";
+  if (act.includes("gratuity")) return "Gratuity";
+  if (
+    act.includes("provident fund") ||
+    act.includes("state insurance") ||
+    act.includes("professional tax") ||
+    act.includes("labour welfare") ||
+    act.includes("minimum wages") ||
+    act.includes("national & festival holidays") ||
+    act.includes("payment of wages")
+  ) {
+    return "Statutory Payments";
+  }
+  if (act.includes("contract labour")) {
+    if (
+      description.toLowerCase().includes("appointment") ||
+      description.toLowerCase().includes("service certificate")
+    ) {
+      return "Employee & HR Records";
+    }
+    if (
+      description.toLowerCase().includes("license") ||
+      description.toLowerCase().includes("commencement/completion")
+    ) {
+      return "Company & License Documents";
+    }
+    if (description.toLowerCase().includes("half yearly")) {
+      return "Returns";
+    }
+    return "Register and Records";
+  }
+  if (act.includes("private security")) return "Company & License Documents";
+  if (act.includes("sexual harassment")) return "Policy";
+  if (act.includes("employee compensation")) return "Insurance";
+  if (act.includes("child labour")) return "Statutory Proof";
+  if (act.includes("equal remuneration")) return "Register and Records";
+
+  return "General Compliance";
+};
+
+const mahindraMahindraFinanceFromJson = mmfslRawData.map((item) => ({
+  act: normalizeMmfslText(item.Act),
+  description: normalizeMmfslText(item.Description),
+  form: normalizeMmfslText(item.Forms),
+  category: normalizeMmfslText(item.Act),
+  stateCount: Number.parseInt(item.State_Count, 10) || 0,
+  states: splitStateList(item.States),
+  notApplicableStates: splitStateList(item.Not_Applicable_States),
+  path: inferMmfslPath(item),
+}));
+
+const mahindraMahindraFinanceCommonActs = [
+  {
+    act: "Bonus Act",
+    description: "Bonus Register",
+    form: "Form C",
+    category: "Bonus",
+    stateCount: 21,
+    states: COMMON_21_STATES,
+    path: "/Central/Bouns/FORM C Bonus Paid To Employees.xlsx",
+  },
+  {
+    act: "Bonus Act",
+    description: "Form D - Annual Return",
+    form: "Form D",
+    category: "Bonus",
+    stateCount: 21,
+    states: COMMON_21_STATES,
+    path: "/Central/Bouns/Form D.xlsx",
+  },
+  {
+    act: "Child Labour Prohibition And Regulation Act 1986",
+    description: "Prohibition Of Employment Of Child Labour",
+    form: "Declaration",
+    category: "Statutory Proof",
+    stateCount: 21,
+    states: COMMON_21_STATES,
+    path: "",
+  },
+  {
+    act: "Employee Compensation Act, 2010",
+    description: "EC/WC Policy",
+    form: "Insurance",
+    category: "Insurance",
+    stateCount: 21,
+    states: COMMON_21_STATES,
+    path: "/Central/Compensation/Returns As To Compensation.xlsx",
+  },
+  {
+    act: "Employees Provident Fund Act & Scheme",
+    description: "Arrears of PF - if applicable for audit period",
+    form: "PF Challan",
+    category: "Statutory Payments",
+    stateCount: 21,
+    states: COMMON_21_STATES,
+    path: "",
+  },
+  {
+    act: "Employees Provident Fund Act & Scheme",
+    description: "PF Declaration",
+    form: "Form 11",
+    category: "Register and Records",
+    stateCount: 21,
+    states: COMMON_21_STATES,
+    path: "/Central/PF/Composite Declaration FORM 11.docx",
+  },
+  {
+    act: "Employees Provident Fund Act & Scheme",
+    description: "PF ECR Statement with employee highlighted",
+    form: "Electronic",
+    category: "Statutory Payments",
+    stateCount: 21,
+    states: COMMON_21_STATES,
+    path: "",
+  },
+  {
+    act: "Employees Provident Fund Act & Scheme",
+    description: "Remittance of the contributions to be made before 15th of every month",
+    form: "PF Challan",
+    category: "Statutory Payments",
+    stateCount: 21,
+    states: COMMON_21_STATES,
+    path: "",
+  },
+  {
+    act: "Employees State Insurance Act & Scheme",
+    description: "ESI Accident Register",
+    form: "Form 11",
+    category: "Register and Records",
+    stateCount: 21,
+    states: COMMON_21_STATES,
+    path: "/Central/ESIC/FORM 11.pdf",
+  },
+  {
+    act: "Employees State Insurance Act & Scheme",
+    description: "ESI Cards (TIC or E-Pehchan)",
+    form: "ESI Card",
+    category: "Register and Records",
+    stateCount: 21,
+    states: COMMON_21_STATES,
+    path: "",
+  },
+  {
+    act: "Employees State Insurance Act & Scheme",
+    description: "ESI Registration Certificate & 17 digit code allotment letter copy",
+    form: "ESI Statewise",
+    category: "Statutory Proof",
+    stateCount: 21,
+    states: COMMON_21_STATES,
+    path: "",
+  },
+  {
+    act: "Employees State Insurance Act & Scheme",
+    description: "Monthly remittance online challan",
+    form: "Challan",
+    category: "Statutory Payments",
+    stateCount: 21,
+    states: COMMON_21_STATES,
+    path: "",
+  },
+  {
+    act: "Equal Remuneration Act",
+    description: "Equal Remuneration Form",
+    form: "Form D",
+    category: "Register and Records",
+    stateCount: 21,
+    states: COMMON_21_STATES,
+    path: "/Central/Wages/Form D (1).xlsx",
+  },
+  {
+    act: "Labour Welfare Fund Act",
+    description: "Payment of contribution along with statement of contributions",
+    form: "Statewise",
+    category: "Statutory Payments",
+    stateCount: 21,
+    states: COMMON_21_STATES,
+    path: "/Gujrat/LWF/FORM A-1.docx",
+  },
+  {
+    act: "Labour Welfare Fund Act",
+    description: "Register of unpaid accumulations, fines and deductions",
+    form: "Statewise",
+    category: "Register and Records",
+    stateCount: 21,
+    states: COMMON_21_STATES,
+    path: "/West Bengal/Minimum Wages/FORM H Register Of Fines And Unpaid Accumulation LWF.docx",
+  },
+  {
+    act: "Maternity Benefit Act",
+    description: "Maternity Register/Muster Roll",
+    form: "Form 10 / Form 11",
+    category: "Maternity",
+    stateCount: 21,
+    states: COMMON_21_STATES,
+    path: "/MAHARASHTRA/FORM 10 Maternity Benefit Register.docx",
+  },
+  {
+    act: "Maternity Benefit Act",
+    description: "Maternity annual return",
+    form: "Form L, M, N",
+    category: "Maternity",
+    stateCount: 21,
+    states: COMMON_21_STATES,
+    path: "/Central/Maternity/FORM L.xlsx",
+  },
+  {
+    act: "Minimum Wages Act",
+    description: "Annual Returns Under Minimum Wages Act 1948",
+    form: "Form III",
+    category: "Returns",
+    stateCount: 21,
+    states: COMMON_21_STATES,
+    path: "/West Bengal/Minimum Wages/FORM III Annual Returns.docx",
+  },
+  {
+    act: "National & Festival Holidays Act",
+    description: "Wages To Be Paid towards National & Festival Holidays",
+    form: "Statewise",
+    category: "Statutory Payments",
+    stateCount: 21,
+    states: COMMON_21_STATES,
+    path: "",
+  },
+  {
+    act: "Payment of Gratuity Act",
+    description: "Gratuity settlement details for eligible employees",
+    form: "Form I",
+    category: "Gratuity",
+    stateCount: 21,
+    states: COMMON_21_STATES,
+    path: "/Central/Gratuity/FORM I Payment Of Gratuity.xlsx",
+  },
+  {
+    act: "Payment of Gratuity Act",
+    description: "Nomination Form",
+    form: "Form F",
+    category: "Gratuity",
+    stateCount: 21,
+    states: COMMON_21_STATES,
+    path: "/Central/Gratuity/FORM F Nomination Form And Updation Of Nomination Form.xlsx",
+  },
+  {
+    act: "Payment of Wages Act",
+    description: "Annual Returns Under Payment Of Wages Act 1936",
+    form: "Annual Return",
+    category: "Returns",
+    stateCount: 21,
+    states: COMMON_21_STATES,
+    path: "/West Bengal/POW/FORM IV Annual Return.docx",
+  },
+  {
+    act: "Payment of Wages Act",
+    description: "Disbursement of wages before 7th/10th with proof",
+    form: "Declaration",
+    category: "Statutory Payments",
+    stateCount: 21,
+    states: COMMON_21_STATES,
+    path: "",
+  },
+  {
+    act: "Payment of Wages Act",
+    description: "Form I Nominations",
+    form: "Form I",
+    category: "Register and Records",
+    stateCount: 21,
+    states: COMMON_21_STATES,
+    path: "/Central/PF/FORM 2 Nomination And Declaration Form For Unexempted-Exempted Establishments.pdf",
+  },
+  {
+    act: "Payment of Wages Act",
+    description: "Proof Of Payment - Full and Final Settlement",
+    form: "Proof Of Payment",
+    category: "Statutory Payments",
+    stateCount: 21,
+    states: COMMON_21_STATES,
+    path: "",
+  },
+  {
+    act: "Private Security Agency Regulation Act",
+    description: "Registration of Security Agency (PSARA)",
+    form: "Declaration",
+    category: "Company & License Documents",
+    stateCount: 21,
+    states: COMMON_21_STATES,
+    path: "",
+  },
+  {
+    act: "Professional Tax Act",
+    description: "PT Annual Return",
+    form: "Statewise",
+    category: "Statutory Payments",
+    stateCount: 21,
+    states: COMMON_21_STATES,
+    path: "/KARNATKA/FORM 9-A PT.docx",
+  },
+  {
+    act: "Professional Tax Act",
+    description: "PT Challan",
+    form: "Statewise",
+    category: "Statutory Payments",
+    stateCount: 21,
+    states: COMMON_21_STATES,
+    path: "",
+  },
+  {
+    act: "The Contract Labour (Regulation & Abolition) Act, 1970",
+    description: "Appointment Letters",
+    form: "Statewise",
+    category: "Employee & HR Records",
+    stateCount: 21,
+    states: COMMON_21_STATES,
+    path: "",
+  },
+  {
+    act: "The Contract Labour (Regulation & Abolition) Act, 1970",
+    description: "Contract Labour License, if applicable",
+    form: "Form VI",
+    category: "Company & License Documents",
+    stateCount: 21,
+    states: COMMON_21_STATES,
+    path: "",
+  },
+  {
+    act: "The Contract Labour (Regulation & Abolition) Act, 1970",
+    description: "Half Yearly returns by contractor",
+    form: "Statewise",
+    category: "Returns",
+    stateCount: 21,
+    states: COMMON_21_STATES,
+    path: "/Central/CLRA Central/Form XXIV Half year return.xlsx",
+  },
+  {
+    act: "The Contract Labour (Regulation & Abolition) Act, 1970",
+    description: "Muster Roll / Muster Roll Cum Wage Register",
+    form: "Statewise",
+    category: "Register and Records",
+    stateCount: 21,
+    states: COMMON_21_STATES,
+    path: "/MAHARASHTRA/CLRA/FORM II Muster Roll Cum Wage Register.xlsx",
+  },
+  {
+    act: "The Contract Labour (Regulation & Abolition) Act, 1970",
+    description: "Rate of Wages under Contract Labour Act",
+    form: "Statewise",
+    category: "Statutory Payments",
+    stateCount: 21,
+    states: COMMON_21_STATES,
+    path: "",
+  },
+  {
+    act: "The Contract Labour (Regulation & Abolition) Act, 1970",
+    description: "Register of Advances, Deductions, Damage or Loss, Fines, Overtime, Wages",
+    form: "Statewise",
+    category: "Register and Records",
+    stateCount: 21,
+    states: COMMON_21_STATES,
+    path: "/Central/CLRA Central/Form XVII Register of Wages.xlsx",
+  },
+  {
+    act: "The Contract Labour (Regulation & Abolition) Act, 1970",
+    description: "Register of workmen employed by contractor",
+    form: "Statewise",
+    category: "Register and Records",
+    stateCount: 21,
+    states: COMMON_21_STATES,
+    path: "/MAHARASHTRA/CLRA/FORM XIII Register Of Workmen Employed By Contractor.docx",
+  },
+  {
+    act: "The Contract Labour (Regulation & Abolition) Act, 1970",
+    description: "Sent a Notice of commencement/completion of contract work",
+    form: "Statewise",
+    category: "Company & License Documents",
+    stateCount: 21,
+    states: COMMON_21_STATES,
+    path: "",
+  },
+  {
+    act: "The Contract Labour (Regulation & Abolition) Act, 1970",
+    description: "Service Certificate",
+    form: "Statewise",
+    category: "Employee & HR Records",
+    stateCount: 21,
+    states: COMMON_21_STATES,
+    path: "/Gujrat/Factory/FORM No. 15.xlsx",
+  },
+  {
+    act: "The Contract Labour (Regulation & Abolition) Act, 1970",
+    description: "Wage Slip",
+    form: "Statewise",
+    category: "Register and Records",
+    stateCount: 21,
+    states: COMMON_21_STATES,
+    path: "/Central/CLRA Central/Form XIX Wage Slip.xlsx",
+  },
+  {
+    act: "The Contract Labour (Regulation & Abolition) Act, 1970",
+    description: "Wage register",
+    form: "Statewise",
+    category: "Register and Records",
+    stateCount: 21,
+    states: COMMON_21_STATES,
+    path: "/Central/CLRA Central/Form XVII Register of Wages.xlsx",
+  },
+];
+
 export const clientComplianceFormMapping = {
   "Pirmal Finance Limited": [
     {
@@ -716,6 +1256,8 @@ export const clientComplianceFormMapping = {
       notes: "",
     },
   ],
+  "Mahindra and Mahindra Finance Limited":
+    buildChecklistFromCommonActs(mahindraMahindraFinanceFromJson),
 };
 
 export const clientComplianceOptions = Object.keys(clientComplianceFormMapping);
